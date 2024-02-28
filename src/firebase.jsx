@@ -14,4 +14,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
-const refence = ref(db, 'users/' + userId);
+const refence = ref(db, 'users/' + userId);// we have to add users in our app after ref we are givin the path for user and given an ID.
+//to write into the database we use the SET which we will import from the firebase/database.
