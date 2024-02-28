@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {getDatabase, ref} from "firebase/database"
+import { getDatabase, ref, set } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyBOuc4-OUCPmTVnc15Uu18bZtsC20ncQDI",
   authDomain: "auhentication-app-a896e.firebaseapp.com",
@@ -8,11 +8,20 @@ const firebaseConfig = {
   storageBucket: "auhentication-app-a896e.appspot.com",
   messagingSenderId: "1037162023200",
   appId: "1:1037162023200:web:5d8fa67ce2b154fe49af45",
-  measurementId: "G-T43D1W3XVJ"
+  measurementId: "G-T43D1W3XVJ",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase();
-const refence = ref(db, 'users/' + userId);// we have to add users in our app after ref we are givin the path for user and given an ID.
-//to write into the database we use the SET which we will import from the firebase/database.
+function writeUserData(userId, name, email, imageUrl)
+{
+    const db = getDatabase();
+const reference = ref(db, "users/" + userId); // we have to add users in our app after ref we are givin the path for user and given an ID.
+//to write into the database we use the SET to save data to hat REF which we will import from the firebase/database.
+set(reference, {
+  username: name,
+  email: email,
+  profile_picture: imageUrl,
+});
+}
+writeUserData("sammy", "sameer", "sammerbutt@gmail.com", "sammyUrl")
