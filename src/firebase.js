@@ -27,5 +27,6 @@ await setDoc(doc(db, "cities", "LA"), { //To create or overwrite a single docume
   state: "CA",
   country: "USA"
 });
-const cityRef = doc(db, 'cities', 'BJ');
-setDoc(cityRef, { capital: true }, { merge: true });
+const cityRef = doc(db, 'cities', 'LA'); //the cityRef here act as an indicator and the LA show that here in this document we are going to merge fields.
+setDoc(cityRef, { capital: true,
+environemnt:"good" }, { merge: true }); // here the first arguement is the indcator we can add as much fields as we want and the third argueent is a bool value whether u want ot merge it or not.
