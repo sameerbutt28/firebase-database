@@ -27,3 +27,5 @@ await setDoc(doc(db, "cities", "LA"), { //To create or overwrite a single docume
   state: "CA",
   country: "USA"
 });
+const cityRef = doc(db, 'cities', 'BJ');
+setDoc(cityRef, { capital: true }, { merge: true });
