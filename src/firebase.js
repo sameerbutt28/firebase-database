@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc, addDoc, collection, updateDoc, deleteDoc} from "firebase/firestore"; 
+import { doc, setDoc, addDoc, collection, updateDoc, deleteDoc, deleteField} from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOuc4-OUCPmTVnc15Uu18bZtsC20ncQDI",
@@ -27,19 +27,50 @@ await setDoc(doc(db, "cities", "LA"), { //To create or overwrite a single docume
   state: "CA",
   country: "USA"
 });
-const cityRef = doc(db, 'cities', 'LA'); //the cityRef here act as an indicator and the LA show that here in this document we are going to merge fields.
+const cityRef = doc(db, 'cities', 'BJ'); //the cityRef here act as an indicator and the LA show that here in this document we are going to merge fields.
 setDoc(cityRef, { capital: true,
 environemnt:"good" }, { merge: true }); // here the first arguement is the indcator we can add as much fields as we want and the third argueent is a bool value whether u want ot merge it or not.
+
+
+
+//ADDING A NEW COLLECTION TO A DATABASE WITH AN AUTO GENEATED ID.
+
+
+
 // Add a new document with a generated id.
-const docRef = await addDoc(collection(db, "cities"), {
-  name: "Tokyo",
-  country: "Japan" // everytime the node file will run this will make a new instnace to the database 
-});
-console.log("Document written with ID: ", docRef.id);
+// const docRef = await addDoc(collection(db, "cities"), {
+//   name: "Tokyo",
+//   country: "Japan" // everytime the node file will run this will make a new instnace to the database 
+// });
+// console.log("Document written with ID: ", docRef.id);
+
+
+
+//UPDATING THE FIELDS WITHIN THE DOCUMENTS 
 const washingtonRef = doc(db, "cities", "BJ");
 
 // Set the "capital" field of the city 'DC'
 await updateDoc(washingtonRef, {
   capital: "DC",
   environemnt: "bad",
+});
+await deleteDoc(doc(db, "cities", "DC"));
+
+
+
+
+// DELETEINGGGGGGGGGG A DOCUMENT
+// await deleteDoc(doc(db, "cities", "BJ")); //here through the whole of the docment of the BJ is deleted from the database.
+
+
+
+
+// DELETEINGGGGGGGGGG A FIELD
+
+const cityyRef = doc(db, 'cities', 'BJ');
+
+// Remove the 'capital' field from the document
+await updateDoc(cityRef, {
+    environemnt: deleteField(),
+    capital: deleteField()
 });
