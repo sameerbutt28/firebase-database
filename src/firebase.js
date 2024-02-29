@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc, addDoc, collection, updateDoc, deleteDoc, deleteField} from "firebase/firestore"; 
+import { doc, setDoc, addDoc, collection, updateDoc, deleteDoc, deleteField, getDoc, getDocFromCache} from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOuc4-OUCPmTVnc15Uu18bZtsC20ncQDI",
@@ -74,3 +74,31 @@ await updateDoc(cityRef, {
     environemnt: deleteField(),
     capital: deleteField()
 });
+
+
+//GET DATA FROM DATABASE GET();
+
+const docRef = doc(db, "cities", "LA");
+const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  console.log("Document data:", docSnap.data());
+} else {
+  // docSnap.data() will be undefined in this case
+  console.log("No such document!");
+} 
+
+
+//IN CASE IF THE SYSTEM IS OFFLINE THIS PIECE OF CODE WILL DISPLAY THE DATA FORM CACHE.
+// const doccRef = doc(db, "cities", "LA");
+
+// // Get a document, forcing the SDK to fetch from the offline cache.
+// try {
+//   const doc = await getDocFromCache(doccRef);
+
+//   // Document was found in the cache. If no cached document exists,
+//   // an error will be returned to the 'catch' block below.
+//   console.log("Cached document data:", doc.data());
+// } catch (e) {
+//   console.log("Error getting cached document:", e);
+// }
