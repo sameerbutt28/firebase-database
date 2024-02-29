@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { doc, setDoc, addDoc, collection} from "firebase/firestore"; 
+import { doc, setDoc, addDoc, collection, updateDoc} from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOuc4-OUCPmTVnc15Uu18bZtsC20ncQDI",
@@ -33,6 +33,13 @@ environemnt:"good" }, { merge: true }); // here the first arguement is the indca
 // Add a new document with a generated id.
 const docRef = await addDoc(collection(db, "cities"), {
   name: "Tokyo",
-  country: "Japan"
+  country: "Japan" // everytime the node file will run this will make a new instnace to the database 
 });
 console.log("Document written with ID: ", docRef.id);
+const washingtonRef = doc(db, "cities", "BJ");
+
+// Set the "capital" field of the city 'DC'
+await updateDoc(washingtonRef, {
+  capital: "DC",
+  environemnt: "bad",
+});
